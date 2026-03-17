@@ -203,6 +203,14 @@ CREATE TABLE IF NOT EXISTS super_admins (
 
 -- Default Data for Plans
 INSERT INTO subscription_plans (name, price, duration_days, max_products, max_users, description) VALUES 
-('Starter (Trial)', 0.00, 14, 20, 2, 'Free trial for new businesses'),
-('Basic Monthly', 5000.00, 30, 200, 5, 'Perfect for small shops'),
-('Premium Monthly', 12000.00, 30, -1, -1, 'Unlimited access for growing businesses');
+
+-- Contact Messages Table
+CREATE TABLE IF NOT EXISTS contact_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    status ENUM('Unread', 'Read', 'Replied') DEFAULT 'Unread',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

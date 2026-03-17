@@ -83,7 +83,22 @@ include '../includes/sidebar.php';
                                     <li><i class="fas fa-check text-success me-2"></i> <?php echo $p['description']; ?></li>
                                 </ul>
                             </div>
-                            <button onclick="subscribePlan(<?php echo $p['id']; ?>, '<?php echo $p['name']; ?>', <?php echo $p['price']; ?>)" class="btn btn-outline-primary w-100 mt-3">Select Plan</button>
+                            
+                            <div class="mb-3 text-start">
+                                <label class="small fw-bold text-muted mb-1">Select Duration</label>
+                                <select class="form-select form-select-sm" id="months_<?php echo $p['id']; ?>" onchange="updatePriceLabel(<?php echo $p['id']; ?>, <?php echo $p['price']; ?>)">
+                                    <option value="1">1 Month</option>
+                                    <option value="3">3 Months</option>
+                                    <option value="6">6 Months</option>
+                                    <option value="12">1 Year (2 Months FREE!)</option>
+                                </select>
+                                <div class="mt-2 small">
+                                    <span class="text-muted">Payable: </span>
+                                    <span class="fw-bold text-dark" id="total_<?php echo $p['id']; ?>">₦<?php echo number_format($p['price'], 2); ?></span>
+                                </div>
+                            </div>
+
+                            <button onclick="initPayment(<?php echo $p['id']; ?>, '<?php echo $p['name']; ?>', <?php echo $p['price']; ?>)" class="btn btn-primary w-100">Subscribe Now</button>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -134,24 +149,42 @@ include '../includes/sidebar.php';
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
-function subscribePlan(planId, planName, amount) {
-    const email = "<?php echo $_SESSION['email'] ?? 'customer@example.com'; ?>"; // Ideally fetch from DB
+function updatePriceLabel(planId, monthlyPrice) {
+    const months = parseInt(document.getElementById('months_' + planId).value);
+    let total = monthlyPrice * months;
     
-    // In a real app, you'd call your backend to get an initializing ref
-    // For this demo, we use a simple JS handler
+    if (months === 12) {
+        total = monthlyPrice * 10; // 2 months free
+    }
+    
+    document.getElementById('total_' + planId).innerText = '₦' + total.toLocaleString(undefined, {minimumFractionDigits: 2});
+}
+
+function initPayment(planId, planName, monthlyPrice) {
+    const months = parseInt(document.getElementById('months_' + planId).value);
+    let finalAmount = monthlyPrice * months;
+    
+    if (months === 12) {
+        finalAmount = monthlyPrice * 10;
+    }
+
+    subscribePlan(planId, planName, finalAmount, months);
+}
+
+function subscribePlan(planId, planName, amount, months) {
+    const email = "<?php echo $_SESSION['email'] ?? 'customer@example.com'; ?>";
     
     let handler = PaystackPop.setup({
-        key: 'pk_test_cca6c3e9497340ab06f6d036e0d9cf758b70fb22', // Replace with your public key
+        key: 'pk_live_e879c0bf5537e2c768ca7d744fde1d73640bae4c',
         email: email,
         amount: amount * 100, // in kobo
         currency: "NGN",
         ref: 'SKR-' + Math.floor((Math.random() * 1000000000) + 1),
         callback: function(response){
-            // Send to backend for verification
-            window.location.href = "<?php echo BASE_URL; ?>settings/process_payment.php?reference=" + response.reference + "&plan_id=" + planId;
+            window.location.href = "<?php echo BASE_URL; ?>settings/process_payment.php?reference=" + response.reference + "&plan_id=" + planId + "&months=" + months;
         },
         onClose: function(){
-            alert('Transaction was not completed, window closed.');
+            alert('Transaction was not completed.');
         }
     });
     handler.openIframe();

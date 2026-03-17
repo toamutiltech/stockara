@@ -21,25 +21,35 @@ if (!$reference || !$plan_id) {
 
 try {
     // Get Plan Info
-    $stmt = $pdo->prepare("SELECT * FROM subscription_plans WHERE id = ?");
-    $stmt->execute([$plan_id]);
-    $plan = $stmt->fetch();
+    $stmt = $pdo->prepare("SELECT p.*, b.subscription_expiry FROM subscription_plans p, businesses b WHERE p.id = ? AND b.id = ?");
+    $stmt->execute([$plan_id, $business_id]);
+    $data = $stmt->fetch();
+    $plan = $data;
+    $biz = $data;
 
     if (!$plan) throw new Exception("Invalid plan selected.");
 
     $pdo->beginTransaction();
 
+    $months = (int)($_GET['months'] ?? 1);
+    
     // 1. Calculate new expiry
     // If current subscription is active, add to it. If expired, start from today.
-    $current_expiry = $_SESSION['subscription_expiry'];
+    $current_expiry = $biz['subscription_expiry']; // Better to check DB value
     $today = date('Y-m-d');
     
     $start_date = ($today > $current_expiry) ? $today : $current_expiry;
-    $end_date = date('Y-m-d', strtotime($start_date . " + " . $plan['duration_days'] . " days"));
+    $end_date = date('Y-m-d', strtotime($start_date . " + $months months"));
+
+    // Calculate actual amount paid based on the 2-months-free rule
+    $amount_paid = $plan['price'] * $months;
+    if ($months === 12) {
+        $amount_paid = $plan['price'] * 10;
+    }
 
     // 2. Record Subscription History
     $stmt = $pdo->prepare("INSERT INTO subscriptions (business_id, plan_id, amount_paid, start_date, end_date, payment_reference, payment_status) VALUES (?, ?, ?, ?, ?, ?, 'Paid')");
-    $stmt->execute([$business_id, $plan_id, $plan['price'], $start_date, $end_date, $reference]);
+    $stmt->execute([$business_id, $plan_id, $amount_paid, $start_date, $end_date, $reference]);
 
     // 3. Update Business Table
     $stmt = $pdo->prepare("UPDATE businesses SET subscription_plan_id = ?, subscription_status = 'Active', subscription_expiry = ? WHERE id = ?");

@@ -14,10 +14,10 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stockara.io/">
+    <meta property="og:url" content="https://stockara.toamultitech.tech/">
     <meta property="og:title" content="Stockara | Modern Inventory & POS">
     <meta property="og:description" content="Streamline your sales and services with our cloud-ready management platform.">
-    <meta property="og:image" content="<?php echo BASE_URL; ?>assets/img/og-image.jpg">
+    <meta property="og:image" content="<?php echo BASE_URL; ?>assest/img/stockara.jpg">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -41,10 +41,19 @@
             --gradient: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
         }
 
-        body {
+        html, body {
             font-family: 'Outfit', sans-serif;
             color: #444;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Prevent AOS related horizontal overflow */
+        .main-wrapper {
             overflow-x: hidden;
+            width: 100%;
+            position: relative;
         }
 
         /* Navbar */
@@ -90,6 +99,32 @@
             color: #555;
             margin-bottom: 35px;
             max-width: 600px;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .hero {
+                padding: 120px 0 60px;
+                text-align: center;
+            }
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero .d-flex {
+                justify-content: center;
+            }
+            .navbar-collapse {
+                border-radius: 15px;
+                margin-top: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
         }
 
         /* Features Section */
@@ -142,7 +177,6 @@
         footer {
             background: var(--dark);
             color: rgba(255,255,255,0.7);
-            padding: 80px 0 30px;
         }
         footer h5 {
             color: #fff;
@@ -165,26 +199,55 @@
             transform: translateY(-3px);
             color: #fff;
         }
+        
+        /* Mobile App Section */
+        .mobile-app-section {
+            background: #fff;
+            padding: 100px 0;
+            overflow: hidden;
+        }
+        .app-badge-btn {
+            background: #000;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .app-badge-btn:hover {
+            background: #333;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .mobile-preview-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(78, 115, 223, 0.2);
+        }
     </style>
 </head>
 <body>
+    <div class="main-wrapper">
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="<?php echo BASE_URL; ?>assest/img/stockara-logo.jpg" alt="Stockara" height="40" class="me-2 rounded shadow-sm">
-                
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse bg-white px-3 py-2" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">What We Do</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#why-us">Why Stockara</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#download" class="text-primary fw-bold">Mobile App</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#why-us">Why Us</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo BASE_URL; ?>auth/login.php">Login</a></li>
                     <li class="nav-item ms-lg-3">
                         <a href="<?php echo BASE_URL; ?>auth/register.php" class="btn btn-primary-custom btn-sm py-2 px-4 shadow">Get Started</a>
@@ -357,8 +420,34 @@
         </div>
     </section>
 
+    <!-- Mobile App Section -->
+    <section class="mobile-app-section py-5 bg-light" id="download">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="badge bg-primary px-3 py-2 mb-3">Stockara Mobile</span>
+                    <h2 class="fw-800 mb-4 h1">Manage Your Business on the Go</h2>
+                    <p class="lead mb-4">Take your sales and services anywhere. Our mobile app allows you to record sales, manage services, and track inventory directly from your smartphone.</p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a href="<?php echo BASE_URL; ?>app/stockara.apk" class="app-badge-btn shadow-lg">
+                            <i class="fab fa-android fa-2x me-3"></i>
+                            <div class="text-start">
+                                <small class="d-block" style="font-size: 10px; opacity: 0.7;">Download for</small>
+                                <span class="fw-bold">Android APK</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5 mt-5 mt-lg-0 text-center" data-aos="fade-left">
+                    <img src="<?php echo BASE_URL; ?>assest/img/stockara-mobile.jpeg" alt="Stockara Mobile App" class="mobile-preview-img mb-4" style="max-height: 550px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Why Choose Stockara -->
-    <section class="py-5" id="why-us">
+    <section class="py-5 bg-white" id="why-us">
         <div class="container py-5">
             <div class="section-title" data-aos="fade-up">
                 <h2>Why Choose Stockara</h2>
@@ -401,37 +490,57 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="pt-5 pb-3">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-5 text-center text-lg-start">
-                    <h5><img src="<?php echo BASE_URL; ?>assest/img/stockara-logo.jpg" alt="Stockara" height="30" class="me-2 rounded">Stockara</h5>
-                    <p>Helping businesses stay organized, improve efficiency, and grow with confidence.</p>
+            <div class="row g-4 text-center text-lg-start">
+                <div class="col-lg-3">
+                    <h5 class="fw-800 text-white mb-4">
+                        <img src="<?php echo BASE_URL; ?>assest/img/stockara-logo.jpg" alt="Stockara" height="30" class="me-2 rounded">
+                        Stockara
+                    </h5>
+                    <p class="text-white-50">Helping businesses stay organized, improve efficiency, and grow with confidence. Your all-in-one business management partner.</p>
                 </div>
-                <div class="col-lg-4 mb-5 text-center">
-                    <h5>Quick Links</h5>
+                <div class="col-lg-3">
+                    <h6 class="text-white fw-bold mb-4">Platform</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#about" class="text-decoration-none text-white-50">About</a></li>
-                        <li><a href="#features" class="text-decoration-none text-white-50">What We Do</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>auth/register.php" class="text-decoration-none text-white-50">Register</a></li>
+                        <li><a href="#about" class="text-white-50 text-decoration-none small">About</a></li>
+                        <li><a href="#features" class="text-white-50 text-decoration-none small">What We Do</a></li>
+                        <li><a href="#pricing" class="text-white-50 text-decoration-none small">Pricing</a></li>
+                        <li><a href="#download" class="text-white-50 text-decoration-none small">Mobile App</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4 mb-5 text-center text-lg-end">
-                    <h5>Contact</h5>
-                    <p>Have questions? Reach out to us for support and inquiries.</p>
-                    <div class="d-flex justify-content-center justify-content-lg-end gap-3">
-                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-white"><i class="fas fa-envelope"></i></a>
+                <div class="col-lg-3">
+                    <h6 class="text-white fw-bold mb-4">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="<?php echo BASE_URL; ?>faq.php" class="text-white-50 text-decoration-none small">Help & FAQ</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>contact.php" class="text-white-50 text-decoration-none small">Contact Support</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>auth/register.php" class="text-white-50 text-decoration-none small">Register</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="text-white fw-bold mb-4">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="<?php echo BASE_URL; ?>terms.php" class="text-white-50 text-decoration-none small">Terms of Service</a></li>
+                        <li><a href="<?php echo BASE_URL; ?>privacy.php" class="text-white-50 text-decoration-none small">Privacy Policy</a></li>
+                    </ul>
+                    <div class="d-flex justify-content-center justify-content-lg-start gap-3 mt-3">
+                        <a href="#" class="text-white-50"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white-50"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:support@stockara.com" class="text-white-50"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
-            <hr class="mt-4 opacity-25">
-            <div class="text-center pt-3">
-                <p class="small mb-0">&copy; 2026 Stockara. All rights reserved.</p>
+            <hr class="mt-4 opacity-10">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center pt-3">
+                <p class="small mb-0 text-white-50">&copy; 2026 Stockara. All rights reserved.</p>
+                <div class="mt-3 mt-md-0">
+                    <img src="https://checkout.paystack.com/assets/img/pstk-badge.png" alt="Paystack" height="25">
+                </div>
             </div>
         </div>
     </footer>
+
+    </div> <!-- End Main Wrapper -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stockara - Inventory & POS Management</title>
-        <meta name="title" content="Stockara | All-in-One Inventory, POS & Service Management System">
+    <meta name="title" content="Stockara | All-in-One Inventory, POS & Service Management System">
     <meta name="description" content="Manage your products, sales, and services from a single powerful system. Stockara helps businesses stay organized, improve efficiency, and grow with confidence.">
     <meta name="keywords" content="Stockara, inventory management system, POS software, service record system, business management tool, barcode scanner POS, repair shop software, pharmacy inventory, warehouse management">
     <meta name="author" content="Stockara Tech">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stockara.io/">
+    <meta property="og:url" content="https://stockara.toamultitech.tech/">
     <meta property="og:title" content="Stockara | Modern Inventory & POS">
     <meta property="og:description" content="Streamline your sales and services with our cloud-ready management platform.">
-    <meta property="og:image" content="<?php echo BASE_URL; ?>assest/img/og-image.jpg">
+    <meta property="og:image" content="<?php echo BASE_URL; ?>assets/img/stockara.jpg">
 
     <link rel="icon" href="<?php echo BASE_URL; ?>assest/img/stockara-logo.jpg" />
     <!-- Google Fonts -->
