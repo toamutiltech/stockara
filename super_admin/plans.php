@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="row align-items-center mb-5">
     <div class="col-lg-6">
         <h2 class="fw-800 text-slate-800">SaaS Yield & Plans</h2>
-        <p class="text-muted">You can configure the subscription architecture for all <span class="fw-bold">KeepRecord</span> customers.</p>
+        <p class="text-muted">You can configure the subscription architecture for all <span class="fw-bold">Stockara</span> customers.</p>
     </div>
     <div class="col-lg-6 text-lg-end">
         <button class="btn btn-premium shadow-sm" data-bs-toggle="modal" data-bs-target="#planModal">

@@ -14,7 +14,7 @@ $logs = $stmt->fetchAll();
 <div class="row align-items-center mb-5">
     <div class="col-lg-6">
         <h2 class="fw-800 text-slate-800">Audit & Trace</h2>
-        <p class="text-muted">Monitor global system activity and user actions across all <span class="fw-bold">KeepRecord</span> instances.</p>
+        <p class="text-muted">Monitor global system activity and user actions across all <span class="fw-bold">Stockara</span> instances.</p>
     </div>
     <div class="col-lg-6 text-lg-end">
         <a href="dashboard.php" class="btn btn-outline-secondary rounded-pill px-4 me-2 small fw-bold shadow-sm">

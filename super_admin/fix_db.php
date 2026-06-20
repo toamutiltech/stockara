@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/db.php';
 
-echo "<h2>KeepRecord Database Synchronization</h2>";
+echo "<h2>Stockara Database Synchronization</h2>";
 
 $tables = [
     "businesses" => "CREATE TABLE IF NOT EXISTS businesses (

@@ -34,9 +34,9 @@ $recent_messages = $stmt->fetchAll();
         <p class="text-muted">You are managing <span class="fw-bold text-primary"><?php echo $total_businesses; ?></span> active business portals.</p>
     </div>
     <div class="col-lg-6 text-lg-end">
-        <button class="btn btn-premium shadow-sm">
+        <a href="businesses.php" class="btn btn-premium shadow-sm">
             <i class="fas fa-plus me-2"></i> Register New Business
-        </button>
+        </a>
     </div>
 </div>
 

@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Base URL Configuration
-define('BASE_URL', '/keeprecord/'); 
+define('BASE_URL', '/stockara/'); 
 
 /**
  * Sanitize input data

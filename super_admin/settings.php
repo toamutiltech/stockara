@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_settings'])) {
 <div class="row align-items-center mb-5">
     <div class="col-lg-6">
         <h2 class="fw-800 text-slate-800">SaaS Control Center</h2>
-        <p class="text-muted">Configure the global ecosystem parameters for the <span class="fw-bold">KeepRecord</span> system.</p>
+        <p class="text-muted">Configure the global ecosystem parameters for the <span class="fw-bold">Stockara</span> system.</p>
     </div>
     <div class="col-lg-6 text-lg-end">
         <a href="dashboard.php" class="btn btn-outline-secondary rounded-pill px-4 me-2 small fw-bold shadow-sm">

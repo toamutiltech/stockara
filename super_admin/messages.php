@@ -26,7 +26,7 @@ $messages = $stmt->fetchAll();
 <div class="row align-items-center mb-5">
     <div class="col-lg-6">
         <h2 class="fw-800 text-slate-800">Support Terminal</h2>
-        <p class="text-muted">Review and respond to inquiries from prospective <span class="fw-bold">KeepRecord</span> users.</p>
+        <p class="text-muted">Review and respond to inquiries from prospective <span class="fw-bold">Stockara</span> users.</p>
     </div>
     <div class="col-lg-6 text-lg-end">
         <a href="dashboard.php" class="btn btn-outline-secondary rounded-pill px-4 me-2 small fw-bold shadow-sm">

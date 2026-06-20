@@ -1,7 +1,7 @@
--- Database Schema for KeepRecord Inventory, POS & Service System
+-- Database Schema for Stockara Inventory, POS & Service System
 
-CREATE DATABASE IF NOT EXISTS keeprecord;
-USE keeprecord;
+CREATE DATABASE IF NOT EXISTS stockara;
+USE stockara;
 
 -- Businesses Table
 CREATE TABLE IF NOT EXISTS businesses (
@@ -202,7 +202,10 @@ CREATE TABLE IF NOT EXISTS super_admins (
 );
 
 -- Default Data for Plans
-INSERT INTO subscription_plans (name, price, duration_days, max_products, max_users, description) VALUES 
+INSERT INTO subscription_plans (id, name, price, duration_days, max_products, max_users, description) VALUES 
+(1, 'Starter (Trial)', 0.00, 14, 20, 2, 'Free trial for new businesses'),
+(2, 'Basic Monthly', 5000.00, 30, 200, 5, 'Perfect for small shops'),
+(3, 'Premium Monthly', 12000.00, 30, -1, -1, 'Unlimited access for growing businesses');
 
 -- Contact Messages Table
 CREATE TABLE IF NOT EXISTS contact_messages (

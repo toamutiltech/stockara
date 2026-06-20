@@ -2,7 +2,7 @@
 // db.php - Database connection
 
 $host = 'localhost';
-$db   = 'keeprecord';
+$db   = 'stockara';
 $user = 'root';
 $pass = 'mysql';
 $charset = 'utf8mb4';

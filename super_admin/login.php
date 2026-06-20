@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($adminCount == 0) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare("INSERT INTO super_admins (username, password, full_name, email) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$username, $hashed_password, 'Platform Administrator', 'admin@keeprecord.com']);
+        $stmt->execute([$username, $hashed_password, 'Platform Administrator', 'admin@stockara.com']);
         $adminCount = 1;
     }
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KeepRecord | Master Console Login</title>
+    <title>Stockara | Master Console Login</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
         
         <div class="mt-5 pt-3">
-            <p class="small text-muted mb-0">&copy; <?php echo date('Y'); ?> KeepRecord SaaS Framework</p>
+            <p class="small text-muted mb-0">&copy; <?php echo date('Y'); ?> Stockara SaaS Framework</p>
             <a href="../index.php" class="text-decoration-none small font-bold">Return to Public Portal</a>
         </div>
     </div>
