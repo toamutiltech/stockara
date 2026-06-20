@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     <meta name="author" content="Stockara Tech">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stockara.toamultitech.tech/">
+    <meta property="og:url" content="https://getstockara.com.ng/">
     <meta property="og:title" content="Stockara | Modern Inventory & POS">
     <meta property="og:description" content="Streamline your sales and services with our cloud-ready management platform.">
     <meta property="og:image" content="<?php echo BASE_URL; ?>assets/img/stockara.jpg">

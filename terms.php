@@ -229,7 +229,7 @@
 
                         <div class="alert alert-primary mt-5 rounded-4 p-4 border-0 text-center">
                             <h5 class="fw-bold mb-2">Acceptance of Terms</h5>
-                            <p class="mb-0 small">Your continued use of Stockara following any updates to these terms constitutes your acceptance of the changes. If you have any concerns, please contact our legal team at <a href="mailto:hello@stockara.toamultitech.tech" class="fw-bold">hello@stockara.toamultitech.tech</a>.</p>
+                            <p class="mb-0 small">Your continued use of Stockara following any updates to these terms constitutes your acceptance of the changes. If you have any concerns, please contact our legal team at <a href="mailto:hello@getstockara.com.ng" class="fw-bold">hello@getstockara.com.ng</a>.</p>
                         </div>
                     </div>
                 </div>

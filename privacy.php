@@ -226,7 +226,7 @@
                                 <i class="fas fa-info-circle fa-2x me-3"></i>
                                 <div>
                                     <h5 class="mb-1 fw-bold">Have Questions?</h5>
-                                    <p class="mb-0 small">If you have any questions about how we handle your data, please contact our privacy team at <a href="mailto:privacy@stockara.toamultitech.tech" class="fw-bold">privacy@stockara.toamultitech.tech</a>.</p>
+                                    <p class="mb-0 small">If you have any questions about how we handle your data, please contact our privacy team at <a href="mailto:privacy@getstockara.com.ng" class="fw-bold">privacy@getstockara.com.ng</a>.</p>
                                 </div>
                             </div>
                         </div>

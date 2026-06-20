@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
                     <div class="contact-icon"><i class="fas fa-envelope-open-text"></i></div>
                     <h5 class="fw-bold">Email Support</h5>
                     <p class="text-muted small">Expect a response within 24 working hours.</p>
-                    <a href="mailto:support@stockara.toamultitech.tech" class="text-primary fw-bold text-decoration-none">support@stockara.toamultitech.tech</a>
+                    <a href="mailto:support@getstockara.com.ng" class="text-primary fw-bold text-decoration-none">support@getstockara.com.ng</a>
                 </div>
             </div>
 
@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_message'])) {
                     <div class="contact-icon"><i class="fas fa-comment-dots"></i></div>
                     <h5 class="fw-bold">General Enquiries</h5>
                     <p class="text-muted small">Questions about features or partnership.</p>
-                    <a href="mailto:hello@stockara.toamultitech.tech" class="text-primary fw-bold text-decoration-none">hello@stockara.toamultitech.tech</a>
+                    <a href="mailto:hello@getstockara.com.ng" class="text-primary fw-bold text-decoration-none">hello@getstockara.com.ng</a>
                 </div>
             </div>
 

@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
                 $pdo->beginTransaction();
 
                 // 1. Create Business
-                $expiry = date('Y-m-d', strtotime('+14 days'));
+                $expiry = date('Y-m-d', strtotime('+365 days'));
                 $stmt = $pdo->prepare("INSERT INTO businesses (name, email, subscription_expiry) VALUES (?, ?, ?)");
                 $stmt->execute([$business_name, $email, $expiry]);
                 $business_id = $pdo->lastInsertId();
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     <meta name="author" content="Stockara Tech">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stockara.toamultitech.tech/">
+    <meta property="og:url" content="https://getstockara.com.ng/">
     <meta property="og:title" content="Stockara | Modern Inventory & POS">
     <meta property="og:description" content="Streamline your sales and services with our cloud-ready management platform.">
     <meta property="og:image" content="<?php echo BASE_URL; ?>assets/img/stockara.jpg">

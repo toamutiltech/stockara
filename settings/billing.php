@@ -16,7 +16,7 @@ $biz = $stmt->fetch();
 // Get Available Plans (excluding current if active)
 $stmt = $pdo->prepare("SELECT * FROM subscription_plans WHERE price > 0 ORDER BY price ASC");
 $stmt->execute();
-$plans = $stmt->fetchAll();
+$plans = $stmt->fetchAll(); 
 
 // Get Payment History
 $stmt = $pdo->prepare("SELECT s.*, p.name as plan_name FROM subscriptions s JOIN subscription_plans p ON s.plan_id = p.id WHERE s.business_id = ? ORDER BY s.created_at DESC");

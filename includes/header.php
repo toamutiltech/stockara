@@ -10,7 +10,7 @@
     <meta name="author" content="Stockara Tech">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stockara.toamultitech.tech/">
+    <meta property="og:url" content="https://www.getstockara.com.ng">
     <meta property="og:title" content="Stockara | Modern Inventory & POS">
     <meta property="og:description" content="Streamline your sales and services with our cloud-ready management platform.">
     <meta property="og:image" content="<?php echo BASE_URL; ?>assets/img/stockara.jpg">
@@ -22,11 +22,14 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- jQuery (Moved here to avoid ReferenceError: $ is not defined) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>assest/css/style.css">
     
     <style>
         :root {

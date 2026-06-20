@@ -1,0 +1,41 @@
+RewriteEngine On
+
+# Internally rewrite extensionless URLs to *.php files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+# Internally rewrite extensionless URLs to *.html files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Front-controller fallback to index.php (catch-all)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ page.php [QSA,L]
+
+# Redirect all HTTP requests to HTTPS
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+Options -Indexes
+
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+<FilesMatch "^\.htaccess$">
+    <RequireAll>
+        Require all denied
+        Require not method DELETE
+        Require not method PUT
+        Require not method PATCH
+    </RequireAll>
+</FilesMatch>
+
+#RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [R=302,L]
+

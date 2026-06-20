@@ -1,4 +1,11 @@
-<?php require_once 'includes/functions.php'; ?>
+<?php 
+require_once 'includes/db.php';
+require_once 'includes/functions.php'; ?>
+<?php
+$stmt = $pdo->prepare("SELECT * FROM subscription_plans  ORDER BY price ASC");
+$stmt->execute();
+$plans = $stmt->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +21,7 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://stockara.toamultitech.tech/">
+    <meta property="og:url" content="https://getstockara.com.ng/">
     <meta property="og:title" content="Stockara | Modern Inventory & POS">
     <meta property="og:description" content="Streamline your sales and services with our cloud-ready management platform.">
     <meta property="og:image" content="<?php echo BASE_URL; ?>assest/img/stockara.jpg">
@@ -363,59 +370,36 @@
         <div class="container py-5">
             <div class="section-title" data-aos="fade-up">
                 <h2>Simple & Transparent Pricing</h2>
-                <p class="text-muted">Choose the plan that best fits your business needs. All accounts start with a 14-day free trial.</p>
+                <p class="text-muted">Choose the plan that best fits your business needs. All accounts start with a One Year free trial.</p>
             </div>
             
             <div class="row g-4 justify-content-center">
-                <!-- Trial Plan -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="p-4 rounded-4 border bg-light h-100 d-flex flex-column text-center">
-                        <h4 class="fw-bold">Free Trial</h4>
-                        <h2 class="text-primary fw-800">₦0<small class="text-muted" style="font-size: 0.5em;">/14 days</small></h2>
-                        <hr>
-                        <ul class="list-unstyled text-start small flex-grow-1">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 20 Products Max</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 2 Users Max</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> POS & Inventory</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Service Tracking</li>
-                        </ul>
-                        <a href="<?php echo BASE_URL; ?>auth/register.php" class="btn btn-outline-primary rounded-pill mt-4 fw-bold">Try for Free</a>
-                    </div>
-                </div>
+                <?php 
+                $delay = 100;
+                    foreach($plans as $p): 
+                        ?>
+                        <!-- Trial Plan -->
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="<?php echo $delay; ?>">
+                            <div class="p-4 rounded-4 border bg-light h-100 d-flex flex-column text-center">
+                                <h4 class="fw-bold"><?php echo $p['name']; ?></h4>
+                                <h2 class="text-primary fw-800">₦<?php echo number_format($p['price'], 2); ?><small class="text-muted" style="font-size: 0.5em;"><?php if($p['price'] == 0) echo '/ One Year'; ?></small></h2>
+                                <hr>
+                                <ul class="list-unstyled text-start small flex-grow-1">
+                                    <li><i class="fas fa-check text-success me-2"></i> <?php echo $p['max_products'] == -1 ? 'Unlimited' : $p['max_products']; ?> Products</li>
+                                    <li><i class="fas fa-check text-success me-2"></i> <?php echo $p['max_users'] == -1 ? 'Unlimited' : $p['max_users']; ?> Users</li>
+                                    <li><i class="fas fa-check text-success me-2"></i> <?php echo $p['description']; ?></li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i> POS & Inventory</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Service Tracking</li>
+                                </ul>
+                                <a href="<?php echo BASE_URL; ?>auth/register.php" class="btn btn-outline-primary rounded-pill mt-4 fw-bold">Try for Free</a>
+                            </div>
+                        </div>
+                        <?php 
+                        $delay += 100;
+                    endforeach; 
+                ?>
+           
                 
-                <!-- Basic Plan -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="p-4 rounded-4 bg-white shadow py-5 h-100 d-flex flex-column text-center" style="border: 2px solid var(--primary); position: relative;">
-                        <div class="position-absolute top-0 start-50 translate-middle bg-primary text-white px-3 py-1 rounded-pill small fw-bold">MOST POPULAR</div>
-                        <h4 class="fw-bold">Basic Monthly</h4>
-                        <h2 class="text-primary fw-800">₦5,000<small class="text-muted" style="font-size: 0.5em;">/month</small></h2>
-                        <hr>
-                        <ul class="list-unstyled text-start small flex-grow-1">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 200 Products Max</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> 5 Users Max</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Full POS Operations</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Advanced Reports</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Barcode Generation</li>
-                        </ul>
-                        <a href="<?php echo BASE_URL; ?>auth/register.php" class="btn btn-primary-custom shadow mt-4">Get Started</a>
-                    </div>
-                </div>
-
-                <!-- Premium Plan -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="p-4 rounded-4 border bg-light h-100 d-flex flex-column text-center">
-                        <h4 class="fw-bold">Premium Monthly</h4>
-                        <h2 class="text-primary fw-800">₦12,000<small class="text-muted" style="font-size: 0.5em;">/month</small></h2>
-                        <hr>
-                        <ul class="list-unstyled text-start small flex-grow-1">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Unlimited Products</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Unlimited Users</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Priority Support</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> All Premium Features</li>
-                        </ul>
-                        <a href="<?php echo BASE_URL; ?>auth/register.php" class="btn btn-outline-primary rounded-pill mt-4 fw-bold">Go Unlimited</a>
-                    </div>
-                </div>
             </div>
         </div>
     </section>

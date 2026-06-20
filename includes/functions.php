@@ -1,7 +1,9 @@
 <?php
 // functions.php - Core helper functions
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Base URL Configuration
 define('BASE_URL', '/keeprecord/'); 
@@ -102,4 +104,3 @@ function checkSubscription() {
         }
     }
 }
-?>

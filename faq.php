@@ -260,7 +260,7 @@
                         <a href="<?php echo BASE_URL; ?>contact.php" class="btn btn-primary-custom px-4">
                             <i class="fas fa-envelope me-2"></i> Message Support
                         </a>
-                        <a href="mailto:support@stockara.toamultitech.tech" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                        <a href="mailto:support@getstockara.com.ng" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
                             Email Us Directly
                         </a>
                     </div>
