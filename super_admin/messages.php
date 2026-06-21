@@ -1,6 +1,23 @@
 <?php
 require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
+require_once 'includes/mailer.php';
+
+// Handle Reply
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reply_message_id'])) {
+    $id = clean($_POST['reply_message_id']);
+    $email = clean($_POST['reply_email']);
+    $subject = "Re: " . clean($_POST['reply_subject']);
+    $reply_body = $_POST['reply_body']; 
+    
+    if (send_email($email, $subject, nl2br($reply_body))) {
+        $stmt = $pdo->prepare("UPDATE contact_messages SET status = 'Replied' WHERE id = ?");
+        $stmt->execute([$id]);
+        redirect('messages.php', "Reply sent successfully!");
+    } else {
+        redirect('messages.php', "Failed to send reply. Please check SMTP settings.", "danger");
+    }
+}
 
 // Handle Actions (Mark Read, Delete)
 if (isset($_GET['action'])) {
@@ -82,7 +99,7 @@ $messages = $stmt->fetchAll();
                                 <i class="fas fa-ellipsis-v"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2">
-                                <li><a class="dropdown-item py-2 small fw-bold" href="mailto:<?php echo $msg['email']; ?>"><i class="fas fa-reply text-primary me-2"></i> Reply by Email</a></li>
+                                <li><a class="dropdown-item py-2 small fw-bold" href="javascript:void(0)" onclick='openReplyModal(<?php echo json_encode($msg); ?>)'><i class="fas fa-reply text-primary me-2"></i> Reply by Email</a></li>
                                 <?php if($msg['status'] == 'Unread'): ?>
                                 <li><a class="dropdown-item py-2 small fw-bold" href="messages.php?id=<?php echo $msg['id']; ?>&action=read"><i class="fas fa-check-circle text-info me-2"></i> Mark as Read</a></li>
                                 <?php endif; ?>
@@ -100,5 +117,56 @@ $messages = $stmt->fetchAll();
         </table>
     </div>
 </div>
+
+<!-- Reply Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-800 text-slate-800"><i class="fas fa-reply text-primary me-2"></i> Reply to Contact</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="replyForm" method="POST" class="modal-body p-4">
+                <input type="hidden" name="reply_message_id" id="reply_message_id">
+                <input type="hidden" name="reply_email" id="reply_email_hidden">
+                <input type="hidden" name="reply_subject" id="reply_subject_hidden">
+                
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted">To</label>
+                        <input type="email" id="reply_email_display" class="form-control bg-light border-0 py-2 rounded-3" disabled>
+                    </div>
+                    
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted">Original Subject</label>
+                        <input type="text" id="reply_subject_display" class="form-control bg-light border-0 py-2 rounded-3" disabled>
+                    </div>
+                    
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted">Reply Message</label>
+                        <textarea name="reply_body" class="form-control bg-light border-0 py-2 rounded-3" rows="6" placeholder="Type your reply here..." required></textarea>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-end">
+                    <button type="button" class="btn btn-light rounded-pill px-4 small fw-bold me-2" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-premium px-5 shadow-sm">Send Reply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function openReplyModal(msg) {
+    $('#reply_message_id').val(msg.id);
+    $('#reply_email_hidden').val(msg.email);
+    $('#reply_email_display').val(msg.email);
+    $('#reply_subject_hidden').val(msg.subject);
+    $('#reply_subject_display').val("Re: " + msg.subject);
+    
+    $('#replyModal').modal('show');
+}
+</script>
 
 <?php require_once 'includes/footer.php'; ?>

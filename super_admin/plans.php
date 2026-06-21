@@ -15,16 +15,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $max_products = clean($_POST['max_products']);
     $max_users = clean($_POST['max_users']);
     $desc = clean($_POST['description']);
+    $features = clean($_POST['features'] ?? '');
     
     if ($id) {
-        $stmt = $pdo->prepare("UPDATE subscription_plans SET name = ?, price = ?, duration_days = ?, max_products = ?, max_users = ?, description = ? WHERE id = ?");
-        $stmt->execute([$name, $price, $duration, $max_products, $max_users, $desc, $id]);
+        $stmt = $pdo->prepare("UPDATE subscription_plans SET name = ?, price = ?, duration_days = ?, max_products = ?, max_users = ?, description = ?, features = ? WHERE id = ?");
+        $stmt->execute([$name, $price, $duration, $max_products, $max_users, $desc, $features, $id]);
         redirect('plans.php', "Subscription plan '$name' updated successfully");
     } else {
-        $stmt = $pdo->prepare("INSERT INTO subscription_plans (name, price, duration_days, max_products, max_users, description) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $price, $duration, $max_products, $max_users, $desc]);
+        $stmt = $pdo->prepare("INSERT INTO subscription_plans (name, price, duration_days, max_products, max_users, description, features) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $price, $duration, $max_products, $max_users, $desc, $features]);
         redirect('plans.php', "New subscription plan '$name' created");
     }
+}
+
+// Handle Delete Plan
+if (isset($_GET['delete_id'])) {
+    $id = clean($_GET['delete_id']);
+    $stmt = $pdo->prepare("DELETE FROM subscription_plans WHERE id = ?");
+    $stmt->execute([$id]);
+    redirect('plans.php', "Subscription plan deleted successfully");
 }
 ?>
 
@@ -53,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2">
                         <li><a class="dropdown-item py-2 small fw-bold" href="javascript:void(0)" onclick='editPlan(<?php echo json_encode($plan); ?>)'><i class="fas fa-edit text-warning me-2"></i> Edit Tier Config</a></li>
                         <li><hr class="dropdown-divider opacity-50"></li>
-                        <li><a class="dropdown-item py-2 small fw-bold text-danger" href="#"><i class="fas fa-trash me-2"></i> Delete Plan</a></li>
+                        <li><a class="dropdown-item py-2 small fw-bold text-danger" href="plans.php?delete_id=<?php echo $plan['id']; ?>" onclick="return confirm('Are you sure you want to delete this plan?');"><i class="fas fa-trash me-2"></i> Delete Plan</a></li>
                     </ul>
                 </div>
             </div>
@@ -76,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
                 
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center mb-3">
                     <div class="icon-sq bg-info bg-opacity-10 text-info rounded-3 d-flex align-items-center justify-content-center me-3" style="width: 35px; height: 35px;">
                         <i class="fas fa-users small"></i>
                     </div>
@@ -85,6 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <p class="mb-0 text-muted" style="font-size: 0.7rem;">Account user seats limit</p>
                     </div>
                 </div>
+                
+                <?php if(!empty($plan['features'])): ?>
+                <?php $plan_features = explode(',', $plan['features']); ?>
+                <div class="mt-3 border-top pt-3">
+                    <p class="fw-bold small mb-2 text-slate-800">Additional Features:</p>
+                    <ul class="list-unstyled mb-0 small text-muted">
+                        <?php foreach($plan_features as $feature): ?>
+                        <li class="mb-1"><i class="fas fa-check-circle text-success me-2"></i> <?php echo htmlspecialchars(trim($feature)); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
             </div>
             
             <button class="btn btn-light border w-100 rounded-3 mt-4 py-2 small fw-bold text-muted hover-shadow" onclick='editPlan(<?php echo json_encode($plan); ?>)'>Update Parameters</button>
@@ -134,6 +155,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="form-label small fw-bold text-muted">Plan Description</label>
                         <textarea name="description" id="plan_desc" class="form-control bg-light border-0 py-2 rounded-3" rows="3" placeholder="Dynamic plan details..."></textarea>
                     </div>
+                    
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted">Additional Features (Comma separated)</label>
+                        <textarea name="features" id="plan_features" class="form-control bg-light border-0 py-2 rounded-3" rows="2" placeholder="e.g. Priority Support, Custom Domain"></textarea>
+                    </div>
                 </div>
                 
                 <div class="mt-4 text-end">
@@ -154,6 +180,7 @@ function editPlan(plan) {
     $('#plan_products').val(plan.max_products);
     $('#plan_users').val(plan.max_users);
     $('#plan_desc').val(plan.description);
+    $('#plan_features').val(plan.features);
     
     $('#planModal').modal('show');
 }

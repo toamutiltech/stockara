@@ -34,6 +34,11 @@
             <span>Messages</span>
         </a>
         
+        <a href="newsletter.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'newsletter.php' ? 'active' : ''; ?>">
+            <i class="fas fa-paper-plane"></i>
+            <span>Newsletter</span>
+        </a>
+        
         <a href="super_admins.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'super_admins.php' ? 'active' : ''; ?>">
             <i class="fas fa-user-shield"></i>
             <span>Master Admins</span>
