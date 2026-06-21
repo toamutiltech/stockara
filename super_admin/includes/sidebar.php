@@ -17,6 +17,11 @@
             <span>Businesses</span>
         </a>
         
+        <a href="users.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'active' : ''; ?>">
+            <i class="fas fa-users"></i>
+            <span>Users</span>
+        </a>
+        
         <a href="plans.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'plans.php' ? 'active' : ''; ?>">
             <i class="fas fa-credit-card"></i>
             <span>SaaS Plans</span>

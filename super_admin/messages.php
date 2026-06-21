@@ -99,7 +99,8 @@ $messages = $stmt->fetchAll();
                                 <i class="fas fa-ellipsis-v"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-4 mt-2">
-                                <li><a class="dropdown-item py-2 small fw-bold" href="javascript:void(0)" onclick='openReplyModal(<?php echo json_encode($msg); ?>)'><i class="fas fa-reply text-primary me-2"></i> Reply by Email</a></li>
+                                <li><a class="dropdown-item py-2 small fw-bold" href="javascript:void(0)" onclick='openViewModal(<?php echo htmlspecialchars(json_encode($msg), ENT_QUOTES, "UTF-8"); ?>)'><i class="fas fa-eye text-success me-2"></i> View Message</a></li>
+                                <li><a class="dropdown-item py-2 small fw-bold" href="javascript:void(0)" onclick='openReplyModal(<?php echo htmlspecialchars(json_encode($msg), ENT_QUOTES, "UTF-8"); ?>)'><i class="fas fa-reply text-primary me-2"></i> Reply by Email</a></li>
                                 <?php if($msg['status'] == 'Unread'): ?>
                                 <li><a class="dropdown-item py-2 small fw-bold" href="messages.php?id=<?php echo $msg['id']; ?>&action=read"><i class="fas fa-check-circle text-info me-2"></i> Mark as Read</a></li>
                                 <?php endif; ?>
@@ -157,7 +158,52 @@ $messages = $stmt->fetchAll();
     </div>
 </div>
 
+<!-- View Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 px-4 pt-4">
+                <h5 class="modal-title fw-800 text-slate-800"><i class="fas fa-envelope-open text-success me-2"></i> View Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted mb-1">Sender Name</label>
+                        <p class="fw-bold mb-0" id="view_sender_name"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted mb-1">Email Address</label>
+                        <p class="mb-0"><a href="#" id="view_sender_email" class="text-primary text-decoration-none fw-bold"></a></p>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted mb-1">Subject</label>
+                        <p class="fw-bold text-slate-800 mb-0" id="view_subject"></p>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label small fw-bold text-muted mb-1">Message Content</label>
+                        <div class="bg-light p-3 rounded-3">
+                            <p class="mb-0 text-muted" id="view_message" style="white-space: pre-wrap; font-size: 0.95rem; line-height: 1.6;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                <button type="button" class="btn btn-light rounded-pill px-4 small fw-bold" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+function openViewModal(msg) {
+    $('#view_sender_name').text(msg.full_name);
+    $('#view_sender_email').text(msg.email).attr('href', 'mailto:' + msg.email);
+    $('#view_subject').text(msg.subject);
+    $('#view_message').text(msg.message);
+    
+    $('#viewModal').modal('show');
+}
 function openReplyModal(msg) {
     $('#reply_message_id').val(msg.id);
     $('#reply_email_hidden').val(msg.email);

@@ -1,6 +1,12 @@
 <?php 
 require_once 'includes/db.php';
-require_once 'includes/functions.php'; ?>
+require_once 'includes/functions.php';
+
+if (isLoggedIn()) {
+    header('Location: dashboard.php');
+    exit();
+}
+?>
 <?php
 $stmt = $pdo->prepare("SELECT * FROM subscription_plans  ORDER BY price ASC");
 $stmt->execute();
@@ -391,7 +397,7 @@ $plans = $stmt->fetchAll();
                                     <li class="mb-2"><i class="fas fa-check text-success me-2"></i> POS & Inventory</li>
                                     <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Service Tracking</li>
                                 </ul>
-                                <a href="<?php echo BASE_URL; ?>auth/register.php" class="btn btn-outline-primary rounded-pill mt-4 fw-bold">Try for Free</a>
+                                <a href="<?php echo BASE_URL; ?>auth/register.php?plan_id=<?php echo $p['id']; ?>" class="btn btn-outline-primary rounded-pill mt-4 fw-bold"><?php echo $p['price'] == 0 ? 'Start Free Trial' : 'Choose Plan'; ?></a>
                             </div>
                         </div>
                         <?php 

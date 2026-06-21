@@ -3,7 +3,7 @@ require_once '../includes/db.php';
 require_once '../includes/functions.php';
 
 if (isLoggedIn()) {
-    header('Location: ../index.php');
+    header('Location: ../dashboard.php');
     exit();
 }
 
